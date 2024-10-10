@@ -1,5 +1,6 @@
 package org.solent;
 
+import org.solent.actions.Action;
 import org.solent.enums.Instruction;
 import org.solent.enums.Orientation;
 
@@ -18,6 +19,8 @@ public class Mower {
 
     private final Lawn lawn;
 
+    private Action action;
+
 
     public Coordinate getCoordinate() {
         return coordinate;
@@ -35,75 +38,17 @@ public class Mower {
         return lawn;
     }
 
-    //On effectue une action selon l'instruction donnée en entrée
-    public void Action(Instruction instruction) {
-        if (instruction == Instruction.A){
-            switch (getOrientation()){
-                //On avance en suivant l'orientation actuelle
-                case N :
-                    //Si on dépasse la pelouse en montant sur l'axe Y alors on ne bouge pas
-                    if(getCoordinate().getY() + 1 != getLawn().getCoordinate().getY()){
-                        getCoordinate().setY(getCoordinate().getY() + 1);
-                    }
-                    break;
-                case S:
-                    //Si on dépasse la pelouse en descendant sur l'axe Y alors on ne bouge pas
-                    if(getCoordinate().getY() != 0){
-                        getCoordinate().setY(getCoordinate().getY() - 1);
-                    }
-                    break;
-                case E:
-                    //Si on dépasse la pelouse en montant sur l'axe X alors on ne bouge pas
-                    if(getCoordinate().getX() + 1 != getLawn().getCoordinate().getX()){
-                        getCoordinate().setX(getCoordinate().getX() + 1);
-                    }
-                    break;
-                case W:
-                    //Si on dépasse la pelouse en descendant sur l'axe X alors on ne bouge pas
-                    if(getCoordinate().getX() != 0){
-                        getCoordinate().setX(getCoordinate().getX() - 1);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } else if (instruction == Instruction.D) {
-            //On change l'orientation de 90° vers la droite
-            switch (getOrientation()){
-                case N :
-                    setOrientation(Orientation.E);
-                    break;
-                case S:
-                    setOrientation(Orientation.W);
-                    break;
-                case E:
-                    setOrientation(Orientation.S);
-                    break;
-                case W:
-                    setOrientation(Orientation.N);
-                    break;
-                default:
-                    break;
-            }
-        } else if (instruction == Instruction.G) {
-            //On change l'orientation de 90° vers la gauche
-            switch (getOrientation()){
-                case N :
-                    setOrientation(Orientation.W);
-                    break;
-                case S:
-                    setOrientation(Orientation.E);
-                    break;
-                case E:
-                    setOrientation(Orientation.N);
-                    break;
-                case W:
-                    setOrientation(Orientation.S);
-                    break;
-                default:
-                    break;
-            }
-        }
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    //On execute l'action voulue
+    public void executeAction() {
+        action.execute(this);
     }
 
     //On renvoie la position actuelle de la tondeuse

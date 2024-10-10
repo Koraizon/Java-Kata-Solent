@@ -2,6 +2,9 @@ package org.solent;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.solent.actions.Advance;
+import org.solent.actions.Left;
+import org.solent.actions.Right;
 import org.solent.enums.Instruction;
 import org.solent.enums.Orientation;
 
@@ -48,7 +51,16 @@ class MainTest {
 
                 //Pour chaque instruction, on va effectuer l'action adéquat
                 for (String instruction : instructions) {
-                    mower.Action(Instruction.valueOf(instruction));
+                    if(Instruction.valueOf(instruction) == Instruction.A){
+                        mower.setAction(new Advance());
+                    }
+                    else if(Instruction.valueOf(instruction) == Instruction.D){
+                        mower.setAction(new Right());
+                    }
+                    else if(Instruction.valueOf(instruction) == Instruction.G){
+                        mower.setAction(new Left());
+                    }
+                    mower.executeAction();
                 }
                 System.out.println("Position finale de la tondeuse " + mowers.indexOf(mower) + " : " + mower.getPosition());
             }
