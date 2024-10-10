@@ -21,7 +21,7 @@ class MainTest {
         List<Mower> mowers = new ArrayList<Mower>();
         try {
             //On récupère le fichier de test et on créé le buffer qui va le lire
-            String file ="src/test/java/testfile.txt";
+            String file ="src/test/java/org/solent/testfile.txt";
             BufferedReader reader = new BufferedReader(new FileReader(file));
             //On lit la première ligne afin de déterminer les dimensions de la pelouse
             String currentLine = reader.readLine();
@@ -36,7 +36,7 @@ class MainTest {
                 String[] initialPosition = currentLine.split(" ");
                 Coordinate initialCoordinate = new Coordinate(Integer.parseInt(initialPosition[0]), Integer.parseInt(initialPosition[1]));
                 Orientation initialOrientation = Orientation.valueOf(initialPosition[2]);
-                Mower mower = new Mower(initialCoordinate, initialOrientation);
+                Mower mower = new Mower(initialCoordinate, initialOrientation, lawn);
 
                 //On ajoute la tondeuse à notre liste de tondeuse
                 mowers.add(mower);
@@ -47,8 +47,9 @@ class MainTest {
 
                 //Pour chaque instruction, on va effectuer l'action adéquat
                 for (String instruction : instructions) {
-                    mower.Action(instruction);
+                    mower.Action(Instruction.valueOf(instruction));
                 }
+                System.out.println("Position finale de la tondeuse " + mowers.indexOf(mower) + " : " + mower.getPosition());
             }
             //On ferme le buffer
             reader.close();
@@ -58,7 +59,8 @@ class MainTest {
         }
 
         //On récupère la position de chaque tondeuse et on les join en un seul string pour avoir le format voulu
-        String results = mowers.stream().map( m -> m.getPosition()).collect(Collectors.joining(" "));
+        String results = mowers.stream().map(Mower::getPosition).collect(Collectors.joining(" "));
+        System.out.println("résultat final : " + results);
 
         assertEquals("1 3 N 5 1 E", results);
     }
