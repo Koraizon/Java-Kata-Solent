@@ -1,14 +1,13 @@
-package org.solent;
+package org.solent.enums;
 
-public enum Orientation {
-    N("NORTH"),
-    S("SOUTH"),
-    E("EAST"),
-    W("WEST");
+public enum Instruction {
+    A("AVANCER"),
+    D("DROITE"),
+    G("GAUCHE");
 
     private final String description;
 
-    Orientation(String description){
+    Instruction(String description){
         this.description = description;
     }
 

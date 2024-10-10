@@ -1,5 +1,8 @@
 package org.solent;
 
+import org.solent.enums.Instruction;
+import org.solent.enums.Orientation;
+
 public class Mower {
 
     //On construit une tondeuse en lui donnant ses coordonées et son orientation initiale
