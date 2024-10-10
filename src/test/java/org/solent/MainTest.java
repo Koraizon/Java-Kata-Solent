@@ -16,7 +16,7 @@ class MainTest {
 
     @Test
     @DisplayName("Execute the program with the test file")
-    void Execute() throws IOException {
+    void Execute() {
         //On créer une liste des tondeuses afin de récupérer leurs positions finales
         List<Mower> mowers = new ArrayList<Mower>();
         try {
